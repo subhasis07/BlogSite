@@ -1,61 +1,22 @@
+import {Route, Routes} from "react-router-dom";
+
 import './App.css';
+import Layout from './pages/Layout';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
-    <main>
-      <header>
-        <a href="" className="logo">My Blog</a>
-        <nav>
-          <a href="">Login</a>
-          <a href="">Register</a>
-        </nav>
-        
-      </header>
 
-   
-          <div className="post">
-            <div className="image">
-              <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_640.jpg"></img>
-            </div>
-            <div className="texts">
-              <h2>Post Heading</h2>
-              <p className="info">
-                <a className="author"> Subhro</a>
-                <time>2024-10-26 7:44</time>
-              </p>
-              <p className="summary">Download and use 700000+ Beautiful stock photos for free. ✓ Thousands of new images every day ✓ Completely Free to Use ✓</p>
-            </div>
-            
-          </div>
-          <div className="post">
-            <div className="image">
-              <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_640.jpg"></img>
-            </div>
-            <div className="texts">
-              <h2>Post Heading</h2>
-              <p className="info">
-                <a className="author"> Subhro</a>
-                <time>2024-10-26 7:44</time>
-              </p>
-              <p className="summary">Download and use 700000+ Beautiful stock photos for free. ✓ Thousands of new images every day ✓ Completely Free to Use ✓</p>
-            </div>
-            
-          </div>
-          <div className="post">
-            <div className="image"> 
-              <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_640.jpg"></img>
-            </div>
-            <div className="texts">
-              <h2>Post Heading</h2>
-              <p className="info">
-                <a className="author"> Subhro</a>
-                <time>2024-10-26 7:44</time>
-              </p>
-              <p className="summary">Download and use 700000+ Beautiful stock photos for free. ✓ Thousands of new images every day ✓ Completely Free to Use ✓</p>
-            </div>
-            
-          </div>
-    </main>
+    <Routes>
+      <Route path="/" element={<Layout/>}>
+        <Route index element={<HomePage/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/register" element={<RegisterPage/>}/>
+      </Route>
+    </Routes>
+    
   );
 }
 
