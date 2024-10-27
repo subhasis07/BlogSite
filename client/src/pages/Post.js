@@ -1,16 +1,18 @@
-export default function Post() {
+import {formatISO9075} from "date-fns";
+
+export default function Post({title,summary,cover,content,createdAt,author}) {
     return(
         <div className="post">
             <div className="image">
-                <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_640.jpg"></img>
+                <img src={'http://localhost:4000/'+cover}></img>
             </div>
             <div className="texts">
-                <h2>Post Heading</h2>
+                <h2>{title}</h2>
                 <p className="info">
-                <a className="author"> Subhro</a>
-                <time>2024-10-26 7:44</time>
+                <a className="author"> {author.username}</a>
+                <time>{formatISO9075(new Date(createdAt))}</time>
                 </p>
-                <p className="summary">Download and use 700000+ Beautiful stock photos for free. ✓ Thousands of new images every day ✓ Completely Free to Use ✓</p>
+                <p className="summary">{summary}</p>
             </div>
         </div>
     )

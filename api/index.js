@@ -5,7 +5,12 @@ const cors= require('cors')
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
 const User = require('./models/User');
+const Post = require('./models/Post');
 const jwt = require("jsonwebtoken")
+
+const multer = require('multer');
+const uploadMiddleware = multer({ dest: 'uploads/' });
+const fs = require('fs');
 
 app.use(cors({credentials:true,origin:'http://localhost:3000'}))
 app.use(express.json())
@@ -16,6 +21,7 @@ dotenv.config();
 
 
 const bcrypt = require('bcrypt');
+const PostModel = require('./models/Post');
 const salt = bcrypt.genSaltSync(10);
 
 
@@ -66,4 +72,35 @@ app.post('/logout', (req,res) => {
   res.cookie('token', '').json('ok');
 });
 
+app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
+  // res.json({files: req.file});
+
+  const {originalname,path} = req.file;
+  const parts = originalname.split('.');
+  const ext = parts[parts.length - 1];
+  const newPath = path+'.'+ext;
+  fs.renameSync(path, newPath);
+
+  const {token} = req.cookies;
+  jwt.verify(token, `${process.env.DB_SECRET}`, {}, async (err,info) => {
+    if (err) throw err;
+    const {title,summary,content} = req.body;
+    const postDoc = await Post.create({
+      title,
+      summary,
+      content,
+      cover:newPath,
+      author:info.id,
+    });
+    res.json(postDoc);
+  });
+
+});
+
+app.get("/post", async(req,res)=>{
+  res.json(await Post.find()
+                      .populate('author',['username'])
+                      .sort({createdAt:-1})
+                      .limit(15))
+})
 app.listen(4000);
