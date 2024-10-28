@@ -50,6 +50,11 @@ div.post div.texts h2{
   font-size: 1.7rem;
 }
 
+div.post div.texts a{
+  text-decoration: none;
+  color: inherit;
+}
+
 div.post p.info{
   margin: 5px 0;
   color: #0000005e;
@@ -68,6 +73,12 @@ div.post p.info a.author{
 div.post p.summary{
   margin: 7px 0;
   line-height: 1.5rem;
+}
+
+@media screen and (min-width: 700px) {
+  div.post{
+      grid-template-columns: .9fr 1.1fr;
+  }
 }
 
 form.login, form.register{
@@ -96,4 +107,36 @@ button{
 
 form.login h1, form.register h1{
   text-align: center;
+}
+
+div.postPage div.image{
+  max-height:300px;
+  display: flex;
+  overflow:hidden;
+}
+div.postPage div.image img{
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+}
+div.postPage a{
+  color:#333;
+  text-decoration: underline;
+}
+div.postPage h1{
+  text-align: center;
+  margin: 10px 0 5px;
+}
+div.postPage time{
+  text-align: center;
+  display: block;
+  font-size:1rem;
+  color:#aaa;
+  margin: 10px 0;
+}
+div.postPage div.author{
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: .7rem;
+  font-weight: bold;
 }
